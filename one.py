@@ -12,6 +12,6 @@ if lp > 0:
     lp = (lp * (1.16))*(1.11)
     lpf = lp * (ds/25)
     st.write(f"✅ Final Price (25mm): {round(lp,2)}")
-    st.write(f"✅ Final Price ({int(ds)}mm): {round(lpf,2)}")
+    st.write(f"🎯 Final Price ({int(ds)}mm): {round(lpf,2)}")
 else:
     st.warning("Enter valid values!")
