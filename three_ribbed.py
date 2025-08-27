@@ -12,8 +12,16 @@ st.info(f"📌 You selected: {choiceb}")
 
 if choiceb == "Option 1 - Timing":
     # Take inputs from user
-    lp = st.number_input("**Enter Landing Price (25mm):**", step=0.1)
-    ds = st.number_input("**Enter Desired Size:**", step=0.1)
+    lp_str = st.text_input("**Enter Landing Price (25mm):**", "")
+    ds_str = st.text_input("**Enter Desired Size:**", "")
+
+    # Convert safely to float
+    try:
+        lp = float(lp_str) if lp_str.strip() != "" else None
+        ds = float(ds_str) if ds_str.strip() != "" else None
+
+    except ValueError:
+        lp, ds = None, None
 
     # Provide 7 options (single-choice menu)
     options = [
@@ -86,9 +94,15 @@ if choiceb == "Option 1 - Timing":
         st.warning("Enter valid values!")
 
 
-else:
+elif choiceb == "Option 2 - Ribbed":
     # Take inputs from user
-    lp = st.number_input("**Enter Landing Price:**", step=0.1)
+    lp_str = st.text_input("**Enter Landing Price:**", "")
+
+    try:
+        lp = float(lp_str) if lp_str.strip() != "" else None
+    
+    except ValueError:
+        lp = None
 
     # Provide 3 options (single-choice menu)
     options = [
