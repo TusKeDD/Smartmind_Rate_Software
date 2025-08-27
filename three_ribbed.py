@@ -38,7 +38,7 @@ if choiceb == "Option 1 - Timing":
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
-    if (lp >= 0 and lp != None) and (ds >= 0 and ds != None):
+    if (lp is not None and lp >= 0) and (ds is not None and ds >= 0):
         if choice == "Option 8 - Others":
             lp = lp * (0.79) 
             lp = (lp * (1.16)) / (0.9)
@@ -114,7 +114,7 @@ elif choiceb == "Option 2 - Ribbed":
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
-    if (lp >= 0 and lp != None):
+    if lp is not None and lp >= 0:
         if choice == "Option 3 - Others":
             lp = (lp * (1.18)) / (0.9)
             d = 0.1
