@@ -12,8 +12,16 @@ st.info(f"📌 You selected: {choiceb}")
 
 if choiceb == "Option 1 - Timing":
     # Take inputs from user
-    lp = st.number_input("**Enter Landing Price (25mm):**", step=0.1)
-    ds = st.number_input("**Enter Desired Size:**", step=0.1)
+    lp_str = st.text_input("**Enter Landing Price (25mm):**", "")
+    ds_str = st.text_input("**Enter Desired Size:**", "")
+
+    # Convert safely to float
+    try:
+        lp = float(lp_str) if lp_str.strip() != "" else None
+        ds = float(ds_str) if ds_str.strip() != "" else None
+
+    except ValueError:
+        lp, ds = None, None
 
     # Provide 7 options (single-choice menu)
     options = [
@@ -30,7 +38,7 @@ if choiceb == "Option 1 - Timing":
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
-    if lp > 0 and ds > 0:
+    if (lp is not None and lp >= 0) and (ds is not None and ds >= 0):
         if choice == "Option 8 - Others":
             lp = lp * (0.79) 
             lp = (lp * (1.16)) / (0.9)
@@ -86,9 +94,15 @@ if choiceb == "Option 1 - Timing":
         st.warning("Enter valid values!")
 
 
-else:
+elif choiceb == "Option 2 - Ribbed":
     # Take inputs from user
-    lp = st.number_input("**Enter Landing Price:**", step=0.1)
+    lp_str = st.text_input("**Enter Landing Price:**", "")
+
+    try:
+        lp = float(lp_str) if lp_str.strip() != "" else None
+    
+    except ValueError:
+        lp = None
 
     # Provide 3 options (single-choice menu)
     options = [
@@ -100,7 +114,7 @@ else:
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
-    if lp > 0:
+    if lp is not None and lp >= 0:
         if choice == "Option 3 - Others":
             lp = (lp * (1.18)) / (0.9)
             d = 0.1
@@ -117,4 +131,3 @@ else:
 
     else:
         st.warning("Enter valid values!")
-
