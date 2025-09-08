@@ -6,6 +6,7 @@ st.title("📊 Price Calculator")
 optionsb = [
     "Option 1 - Timing",
     "Option 2 - Ribbed",
+    "Option 3 - Flat"
 ]
 choiceb = st.radio("**Choose Belt Type:**", optionsb)
 st.info(f"📌 You selected: {choiceb}")
@@ -32,14 +33,15 @@ if choiceb == "Option 1 - Timing":
         "Option 5 - P",
         "Option 6 - J",
         "Option 7 - G",
-        "Option 8 - Others"
+        "Option 8 - RC",
+        "Option 9 - Others"
     ]
     choice = st.radio("**Choose One Option:**", options)
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
     if (lp is not None and lp >= 0) and (ds is not None and ds >= 0):
-        if choice == "Option 8 - Others":
+        if choice == "Option 9 - Others":
             lp = lp * (0.79) 
             lp = (lp * (1.16)) / (0.9)
             lpf = lp * (ds / 25)
@@ -87,6 +89,13 @@ if choiceb == "Option 1 - Timing":
             lpf = lp * (ds / 25)
             d = 0.1
 
+        elif choice == "Option 8 - RC":
+            lp = lp * (0.79)
+            lp = (lp * (1.16)) / (0.88)
+            lpf = lp * (ds / 25)
+            d = 0.12
+
+
         st.write(f"✅ Price for 25mm: **{round(lp, 2)}**")
         st.write(f"🎯 Final Price for {int(ds)}mm: **{round(lpf, 2)}**")
 
@@ -108,14 +117,19 @@ elif choiceb == "Option 2 - Ribbed":
     options = [
         "Option 1 - P",
         "Option 2 - L",
-        "Option 3 - Others"
+        "Option 3 - KK",
+        "Option 4 - B",
+        "Option 5 - J",
+        "Option 6 - PML",
+        "Option 7 - RC",
+        "Option 8 - Others"
     ]
     choice = st.radio("**Choose One Option:**", options)
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
     if lp is not None and lp >= 0:
-        if choice == "Option 3 - Others":
+        if choice == "Option 8 - Others":
             lp = (lp * (1.18)) / (0.9)
             d = 0.1
 
@@ -127,7 +141,58 @@ elif choiceb == "Option 2 - Ribbed":
             lp = (lp * (1.16)) / (0.87)
             d = 0.13
 
+        elif choice == "Option 3 - KK":
+            lp = (lp * (1.18)) / (0.77)
+            d = 0.23
+
+        elif choice == "Option 4 - B":
+            lp = (lp * (1.18)) / (0.80)
+            d = 0.2
+
+        elif choice == "Option 5 - J":
+            lp = (lp * (1.18)) / (0.85)
+            d = 0.15
+
+        elif choice == "Option 6 - PML":
+            lp = (lp * (1.18)) / (0.975)
+            d = 0.025
+
+        elif choice == "Option 7 - RC":
+            lp = (lp * (1.18)) / (0.88)
+            d = 0.12
+
+        elif choice == "Option 8 - Others":
+            lp = (lp * (1.18)) / (0.87)
+            d = 0.13
+
         st.write(f"✅ Final Price: **{round(lp, 2)}**")
+
+    else:
+        st.warning("Enter valid values!")
+    
+elif choiceb == "Option 3 - Flat":
+    # Take inputs from user
+    l_str = st.text_input("**Enter Length (mm):**", "")
+    w_str = st.text_input("**Enter Width (mm):**", "")
+    s_str = st.text_input("**Enter Cost per 1m, 1cm (1000mm, 10mm):**", "")
+
+    try:
+        l = float(l_str) if l_str.strip() != "" else None
+        w = float(w_str) if w_str.strip() != "" else None
+        s = float(s_str) if s_str.strip() != "" else None
+    
+    except ValueError:
+        l = None
+        w = None
+        s = None
+
+    # Calculate
+    if l is not None and l >= 0 and w is not None and w >= 0 and s is not None and s >= 0:
+        l = (l+250)
+        final = (l * w * s) / (1000* 10)
+        final = final * (1.13)
+        final = final / 0.9
+        st.write(f"✅ Final Price: **{round(final, 2)}**")
 
     else:
         st.warning("Enter valid values!")
