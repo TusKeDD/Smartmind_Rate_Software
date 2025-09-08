@@ -34,14 +34,15 @@ if choiceb == "Option 1 - Timing":
         "Option 6 - J",
         "Option 7 - G",
         "Option 8 - RC",
-        "Option 9 - Others"
+        "Option 9 - PML",
+        "Option 10 - Others"
     ]
     choice = st.radio("**Choose One Option:**", options)
     st.info(f"📌 You selected: {choice}")
 
     # Calculate
     if (lp is not None and lp >= 0) and (ds is not None and ds >= 0):
-        if choice == "Option 9 - Others":
+        if choice == "Option 10 - Others":
             lp = lp * (0.79) 
             lp = (lp * (1.16)) / (0.9)
             lpf = lp * (ds / 25)
@@ -95,6 +96,11 @@ if choiceb == "Option 1 - Timing":
             lpf = lp * (ds / 25)
             d = 0.12
 
+        elif choice == "Option 9 - PML":
+            lp = lp * (0.79)
+            lp = (lp * (1.16)) / (0.975)
+            lpf = lp * (ds / 25)
+            d = 0.025
 
         st.write(f"✅ Price for 25mm: **{round(lp, 2)}**")
         st.write(f"🎯 Final Price for {int(ds)}mm: **{round(lpf, 2)}**")
@@ -174,24 +180,85 @@ elif choiceb == "Option 3 - Flat":
     # Take inputs from user
     l_str = st.text_input("**Enter Length (mm):**", "")
     w_str = st.text_input("**Enter Width (mm):**", "")
-    s_str = st.text_input("**Enter Cost per 1m, 1cm (1000mm, 10mm):**", "")
 
     try:
         l = float(l_str) if l_str.strip() != "" else None
         w = float(w_str) if w_str.strip() != "" else None
-        s = float(s_str) if s_str.strip() != "" else None
     
     except ValueError:
         l = None
         w = None
+
+    if w is not None and w >= 0 and l is not None and l >= 0:
+        if w > 50:
+            l += 500
+            st.info(f"📌 Belt width more than 50mm  ➡️  500mm skiving")
+        else:
+            l += 250
+            st.info(f"📌 Belt width less than 50mm  ➡️  250mm skiving")
+
+    s_str = st.text_input("**Enter Cost per 1m, 1cm (1000mm, 10mm):**", "")
+
+    try:
+        s = float(s_str) if s_str.strip() != "" else None
+    
+    except ValueError:
         s = None
+
+    options = [
+        "Option 1 - P",
+        "Option 2 - L",
+        "Option 3 - KK",
+        "Option 4 - B",
+        "Option 5 - J",
+        "Option 6 - PML",
+        "Option 7 - RC",
+        "Option 8 - Others"
+    ]
+    choice = st.radio("**Choose One Option:**", options)
+    st.info(f"📌 You selected: {choice}")
 
     # Calculate
     if l is not None and l >= 0 and w is not None and w >= 0 and s is not None and s >= 0:
-        l = (l+250)
-        final = (l * w * s) / (1000* 10)
-        final = final * (1.13)
-        final = final / 0.9
+        if choice == "Option 8 - Others":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.9
+        
+        elif choice == "Option 1 - P":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+
+        elif choice == "Option 2 - L":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.87
+        
+        elif choice == "Option 3 - KK":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.77
+        
+        elif choice == "Option 4 - B":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.8
+        
+        elif choice == "Option 5 - J":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.85
+        
+        elif choice == "Option 6 - PML":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.975
+        
+        elif choice == "Option 7 - RC":
+            final = (l * w * s) / (1000* 10)
+            final = final * (1.13)
+            final = final / 0.88
+        
         st.write(f"✅ Final Price: **{round(final, 2)}**")
 
     else:
