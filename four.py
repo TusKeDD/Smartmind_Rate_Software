@@ -205,7 +205,9 @@ elif choiceb == "Option 3 - Flat":
         "Grade 5 - TFL 22 E26",
         "Grade 6 - HUS 500",
         "Grade 7 - TFL 15 E25",
-        "Grade 8 - TLA 30 E30"
+        "Grade 8 - TLA 30 E30",
+        "Grade 9 - LA 750 DS",
+        "Grade 10 - TFL 12S"
     ]
     choicesize = st.radio("**Choose a Grade:**", optionssize)
     st.info(f"📌 You selected: {choicesize}")
@@ -226,6 +228,10 @@ elif choiceb == "Option 3 - Flat":
         s = 140
     elif choicesize == "Grade 8 - TLA 30 E30":
         s = 189
+    elif choicesize == "Grade 9 - LA 750 DS":
+        s = 120
+    elif choicesize == "Grade 10 - TFL 12S":
+        s = 162
     
     options = [
         "Option 1 - P",
