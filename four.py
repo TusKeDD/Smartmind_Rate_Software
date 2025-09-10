@@ -197,14 +197,36 @@ elif choiceb == "Option 3 - Flat":
             l += 250
             st.info(f"📌 Belt width less than 50mm  ➡️  250mm skiving")
 
-    s_str = st.text_input("**Enter Cost per 1m, 1cm (1000mm, 10mm):**", "")
+    optionssize = [
+        "Grade 1 - TFL 10 S",
+        "Grade 2 - TFL 12 S",
+        "Grade 3 - TFL 18 S",
+        "Grade 4 - TFL 15 E20",
+        "Grade 5 - TFL 22 E26",
+        "Grade 6 - HUS 500",
+        "Grade 7 - TFL 15 E25",
+        "Grade 8 - TLA 30 E30"
+    ]
+    choicesize = st.radio("**Choose a Grade:**", optionssize)
+    st.info(f"📌 You selected: {choicesize}")
 
-    try:
-        s = float(s_str) if s_str.strip() != "" else None
+    if choicesize == "Grade 1 - TFL 10 S":
+        s = 124
+    elif choicesize == "Grade 2 - TFL 12 S":
+        s = 162
+    elif choicesize == "Grade 3 - TFL 18 S":
+        s = 190
+    elif choicesize == "Grade 4 - TFL 15 E20":
+        s = 130
+    elif choicesize == "Grade 5 - TFL 22 E26":
+        s = 158
+    elif choicesize == "Grade 6 - HUS 500":
+        s = 142
+    elif choicesize == "Grade 7 - TFL 15 E25":
+        s = 140
+    elif choicesize == "Grade 8 - TLA 30 E30":
+        s = 189
     
-    except ValueError:
-        s = None
-
     options = [
         "Option 1 - P",
         "Option 2 - L",
